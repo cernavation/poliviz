@@ -35,11 +35,11 @@ export function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-40 bg-paper border-b border-mid">
-        <div className="max-w-content mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-4">
+        <div className="w-full max-w-content mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link
             href={localize(ROUTES.home)}
-            className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0"
+            className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0 mr-auto md:mr-0"
             aria-label="Poliviz-Design — на главную"
           >
             <Image
@@ -118,9 +118,11 @@ export function Header() {
             <Image
               src="/polivizlogo2.png"
               alt="Poliviz Design"
-              width={180}
-              height={48}
-              className="h-12 max-h-12 w-auto object-contain py-0.5"
+              width={400}
+              height={120}
+              className="h-24 sm:h-32 w-auto object-contain"
+              priority
+              unoptimized
             />
           </Link>
           <button
