@@ -1,93 +1,67 @@
-import type { Metadata } from "next";
+"use client";
 import { CLIENTS_BY_CATEGORY } from "../../../content/clients.config";
 import { CASES_VISIBLE } from "../../../content/cases.config";
 import { CMYKBar } from "@/components/ui/CMYKBar";
 import { SheetLabel } from "@/components/ui/SheetLabel";
 import { PrintMark } from "@/components/ui/PrintMark";
 import { Button } from "@/components/ui/Button";
+import { Win95Window } from "@/components/ui/Win95Window";
 import { ROUTES } from "../../../content/routes";
-import { SITE } from "../../../content/site.config";
+import { useLang } from "@/context/LanguageContext";
 
-export const metadata: Metadata = {
-  title: "Клиенты типографии",
-  description: `Более 700 компаний уже печатают с ${SITE.name}: Samsung, LG, Nokia, Pepsi, Air Moldova, Cricova, Orange и другие. Кишинёв.`,
+const CAT_LABEL: Record<string, string> = {
+  tech: "cat_tech", retail: "cat_retail", transport: "cat_transport",
+  wine: "cat_wine", food: "cat_food", finance: "cat_finance",
 };
 
-export default function ClientsPage() {
+export default function KlienkyPage() {
+  const { t } = useLang();
+  const cp = t.clients_page;
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="bg-paper py-16 md:py-24 px-6 md:px-10 relative overflow-hidden">
         <PrintMark size={18} color="#7A7469" className="absolute top-6 left-6 opacity-30" />
         <PrintMark size={18} color="#7A7469" className="absolute top-6 right-6 opacity-30" />
-
         <div className="max-w-content mx-auto">
           <SheetLabel sheet={1} total={2} tech="Клиенты" className="mb-8 block" />
-          <h1 className="text-display text-ink mb-6 max-w-3xl">
-            Более 2200 компаний уже печатают с нами.
-          </h1>
-          <p className="text-title text-muted max-w-2xl" style={{ fontWeight: 400 }}>
-            От компаний с мировым именем до фирм, только вышедших на рынок.
-          </p>
+          <h1 className="text-display text-ink mb-6 max-w-3xl">{cp.hero_h1}</h1>
+          <p className="text-title text-muted max-w-2xl" style={{ fontWeight: 400 }}>{cp.hero_sub}</p>
         </div>
       </section>
-
       <CMYKBar />
-
-      {/* ── CLIENTS GRID BY CATEGORY ─────────────────────────────── */}
       <section className="bg-paper py-12 md:py-20 px-6 md:px-10">
-        <div className="max-w-content mx-auto">
-          <div className="flex flex-col gap-14">
-            {CLIENTS_BY_CATEGORY.map((group) => (
-              <div key={group.id} className="border-t border-mid pt-10">
-                {/* Category heading */}
-                <p className="sheet-label text-muted mb-8">{group.label}</p>
-
-                {/* Logo grid */}
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 items-center">
-                  {group.clients.map((client) => (
-                    <div
-                      key={client.slug}
-                      className="flex items-center justify-center p-3 aspect-[3/2]"
-                      title={client.name}
-                    >
-                      <img
-                        src={`/media/clients/${client.slug}.svg`}
-                        alt={client.name}
-                        className="h-10 w-full max-w-[96px] object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 ease-in-out"
-                        loading="lazy"
-                        draggable={false}
-                      />
-                    </div>
-                  ))}
-                </div>
+        <div className="max-w-content mx-auto flex flex-col gap-10">
+          {CLIENTS_BY_CATEGORY.map((group) => (
+            <Win95Window key={group.id}
+              title={(cp as Record<string, string>)[CAT_LABEL[group.id]] ?? group.label}
+              variant="navy" bodyClassName="p-6">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 items-center">
+                {group.clients.map((client) => (
+                  <div key={client.slug} className="flex items-center justify-center p-3 aspect-[3/2]" title={client.name}>
+                    <img src={`/media/clients/${client.slug}.svg`} alt={client.name}
+                      className="h-10 w-full max-w-[96px] object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                      loading="lazy" draggable={false} />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </Win95Window>
+          ))}
         </div>
       </section>
-
-      {/* Cases — hidden when empty */}
       {CASES_VISIBLE && (
         <section className="bg-mid py-16 px-6 md:px-10">
           <div className="max-w-content mx-auto">
-            <SheetLabel sheet={2} total={2} tech="Кейсы" className="mb-8 block" />
             <h2 className="text-headline text-ink mb-8">Избранные проекты</h2>
-            {/* TODO(client): добавить кейсы в cases.config.ts */}
           </div>
         </section>
       )}
-
-      {/* CTA */}
       <section className="bg-ink text-paper py-16 md:py-24 px-6 md:px-10">
         <div className="max-w-content mx-auto flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
           <div>
-            <p className="text-headline text-paper font-700 mb-2">Стать клиентом</p>
-            <p className="text-body text-mid">Расскажите задачу — подберём технологию и рассчитаем.</p>
+            <p className="text-headline text-paper font-700 mb-2">{cp.cta_title}</p>
+            <p className="text-body text-mid">{cp.cta_sub}</p>
           </div>
-          <Button as="a" href={ROUTES.order} variant="outline" className="border-paper text-paper hover:bg-paper hover:text-ink flex-shrink-0">
-            Рассчитать заказ
-          </Button>
+          <Button as="a" href={ROUTES.order} variant="primary" className="flex-shrink-0">{cp.cta_btn}</Button>
         </div>
       </section>
     </>

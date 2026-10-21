@@ -8,21 +8,145 @@
     "order": "Calculează comanda"
   },
   "hero": {
-    "headline": "Din fișier — în mâini.",
+    "headline": "Din fișier —\nîn mâini.",
     "subline": "Tipografie full-cycle în Chișinău: design, tipar și prelucrare postimprimare într-un singur atelier.",
     "cta_order": "Calculează comanda",
     "cta_prepress": "Încarcă macheta"
+  },
+  "stats": {
+    "orders_num": "260 000+",
+    "orders_label": "comenzi finalizate",
+    "orders_sub": "executate și livrate clienților",
+    "orders_win": "Comenzi",
+    "clients_num": "2 200+",
+    "clients_label": "companii",
+    "clients_sub": "ne încredințează regulat tirajele lor",
+    "clients_win": "Clienți",
+    "area_num": "2 500+ m²",
+    "area_label": "spațiu",
+    "area_sub": "spații de producție proprii",
+    "area_win": "Producție"
+  },
+  "scroll": {
+    "ch1_title": "Scară și tiraje",
+    "ch1_body": "De la exemplare unice la loturi industriale. Utilaje offset și digitale de ultimă generație.",
+    "ch2_title": "Tipărim pe orice",
+    "ch2_body": "Textile, sticlă, plastic, lemn. Serigrafie și tăiere cu plotter de orice complexitate.",
+    "ch3_title": "Pentru afacerea dvs.",
+    "ch3_body": "Ambalaje premium, merch, poligrafie complexă cu protecție și holograme."
+  },
+  "catalog_section": {
+    "label": "Produse",
+    "heading": "Ce tipărim",
+    "all_link": "Tot catalogul →"
+  },
+  "prepress_section": {
+    "heading": "Macheta aprobată — tirajul iese fără surprize.",
+    "body": "Formate CDR, AI, EPS, TIFF, PDF. Bleed 2 mm, zonă de siguranță 3–5 mm, text în curbe, CMYK 300%. Schema interactivă și lista de verificare — pe pagina de pregătire.",
+    "cta": "Cerințe pentru machete"
+  },
+  "contact_section": {
+    "heading": "Spuneți-ne ce tipărim.",
+    "body": "Lăsați o cerere sau scrieți direct — managerul va răspunde și vă va ajuta să alegeți tehnologia."
+  },
+  "quick_form": {
+    "title": "Cerere rapidă",
+    "name": "Nume",
+    "phone": "Telefon",
+    "what": "Ce tipărim",
+    "name_ph": "Numele dvs.",
+    "phone_ph": "+373 xx xxx xxx",
+    "what_ph": "Descrieți pe scurt sarcina",
+    "submit": "Calculează comanda",
+    "disclaimer": "Formularul duce la pagina de calcul. Datele nu sunt transmise terților."
+  },
+  "order_form": {
+    "title": "Formular de calculare",
+    "name": "Nume",
+    "phone": "Telefon",
+    "email": "E-mail",
+    "product": "Ce tipărim",
+    "product_default": "— Selectați din catalog —",
+    "quantity": "Tiraj",
+    "quantity_ph": "De exemplu: 500 buc.",
+    "deadline": "Termen",
+    "deadline_ph": "De exemplu: până pe 1 noiembrie",
+    "comment": "Comentariu",
+    "comment_ph": "Cerințe suplimentare, dorințe speciale",
+    "file_label": "Machetă (până la {mb} MB)",
+    "file_formats": "CDR, AI, EPS, TIFF, PDF, JPG",
+    "consent": "Sunt de acord cu prelucrarea datelor personale conform",
+    "consent_link": "politicii de confidențialitate",
+    "submit": "Trimite cererea",
+    "sending": "Se trimite…",
+    "error": "Eroare la trimitere. Sunați-ne direct sau scrieți pe e-mail.",
+    "required_note": "* — câmpuri obligatorii. Datele nu sunt transmise terților."
   },
   "footer": {
     "lang_label": "Язык / Limbă / Language",
     "order_link": "Calculează comanda →",
     "copyright": "Chișinău, Moldova."
   },
-  "clients": {
+  "clients_page": {
     "page_title": "Clienții tipografiei",
     "hero_h1": "Peste 2200 de companii imprimă deja cu noi.",
     "hero_sub": "De la companii cu renume mondial la firme nou-intrate pe piață.",
     "cta_title": "Deveniți client",
-    "cta_sub": "Descrieți sarcina — vom alege tehnologia și vom calcula."
+    "cta_sub": "Descrieți sarcina — vom alege tehnologia și vom calcula.",
+    "cta_btn": "Calculează comanda",
+    "cat_tech": "Tehnologie și Electronică",
+    "cat_retail": "Rețele și Retail",
+    "cat_transport": "Transport și Servicii",
+    "cat_wine": "Vinării",
+    "cat_food": "Produse alimentare și Restaurante",
+    "cat_finance": "Finanțe, Sănătate și Comunicații"
+  },
+  "services_page": {
+    "hero_h1": "Șapte tehnologii — un atelier.",
+    "hero_sub": "Offset, digital, serigrafie, format mare, plotter, laminare și post-tipar sub același acoperiș — fără intermediari.",
+    "picker_h2": "Nu știți ce tehnologie se potrivește?",
+    "picker_sub": "Răspundeți la trei întrebări — primiți o recomandare motivată. Este orientativ; managerul va confirma tehnologia final."
+  },
+  "catalog_page": {
+    "hero_h1": "Ce tipărim.",
+    "hero_sub": "poziții. Apăsați «Vreau asta» — formularul se va completa automat.",
+    "all_types": "Toate tipurile",
+    "all_tech": "Toate tehnologiile",
+    "positions": "poziții",
+    "want_this": "Vreau asta",
+    "want_this_long": "Vreau asta — calculează",
+    "technologies": "Tehnologii",
+    "close": "← Închide",
+    "empty": "Nicio poziție pentru filtrele selectate.",
+    "reset": "Resetează filtrele"
+  },
+  "prepress_page": {
+    "hero_h1": "Pregătirea machetelor.",
+    "hero_sub": "Respectați cerințele — și tirajul va ieși fără opriri pentru reaprobări.",
+    "diagram_h2": "Bleed și zona de siguranță",
+    "checklist_h2": "Ce să verificați înainte de trimitere",
+    "formats_h2": "Formate acceptate",
+    "upload_h2": "Macheta e gata?",
+    "upload_body": "Încărcați fișierul prin formularul de calcul. Acceptăm CDR, AI, EPS, TIFF, PDF.",
+    "upload_cta": "Încarcă macheta și calculează",
+    "required": "Obligatoriu",
+    "optional": "Recomandat"
+  },
+  "contacts_page": {
+    "hero_h1": "Contacte.",
+    "address": "Adresă",
+    "phones": "Telefoane",
+    "on_map": "Pe hartă",
+    "open_map": "Deschide în OpenStreetMap →",
+    "mob": "(mob.)",
+    "fax": "Fax:"
+  },
+  "order_page": {
+    "hero_h1": "Calculează comanda.",
+    "hero_sub": "Completați formularul — managerul va răspunde și va clarifica detaliile.",
+    "contacts_title": "Contacte",
+    "phone": "Telefon",
+    "mobile": "Mobil",
+    "address": "Adresă"
   }
 }

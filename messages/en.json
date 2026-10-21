@@ -8,21 +8,145 @@
     "order": "Get a quote"
   },
   "hero": {
-    "headline": "From file — to hands.",
+    "headline": "From file —\nto hands.",
     "subline": "Full-cycle print shop in Chișinău: design, print and post-press finishing under one roof.",
     "cta_order": "Get a quote",
     "cta_prepress": "Upload artwork"
+  },
+  "stats": {
+    "orders_num": "260 000+",
+    "orders_label": "successful orders",
+    "orders_sub": "completed and delivered to clients",
+    "orders_win": "Orders",
+    "clients_num": "2 200+",
+    "clients_label": "companies",
+    "clients_sub": "regularly trust us with their print runs",
+    "clients_win": "Clients",
+    "area_num": "2 500+ m²",
+    "area_label": "production space",
+    "area_sub": "of our own production facilities",
+    "area_win": "Production"
+  },
+  "scroll": {
+    "ch1_title": "Scale & print runs",
+    "ch1_body": "From single copies to industrial batches. State-of-the-art offset and digital machines.",
+    "ch2_title": "Print on anything",
+    "ch2_body": "Textiles, glass, plastic, wood. Silkscreen and plotter cutting of any complexity.",
+    "ch3_title": "For your business",
+    "ch3_body": "Premium packaging, merch, complex print with security features and holograms."
+  },
+  "catalog_section": {
+    "label": "Products",
+    "heading": "What we print",
+    "all_link": "Full catalog →"
+  },
+  "prepress_section": {
+    "heading": "Artwork approved — print run delivered on time.",
+    "body": "Formats CDR, AI, EPS, TIFF, PDF. Bleed 2 mm, safety zone 3–5 mm, text in curves, CMYK 300%. Interactive diagram and checklist — on the prepress page.",
+    "cta": "Artwork requirements"
+  },
+  "contact_section": {
+    "heading": "Tell us what to print.",
+    "body": "Leave a request or write directly — a manager will respond and help choose the technology."
+  },
+  "quick_form": {
+    "title": "Quick inquiry",
+    "name": "Name",
+    "phone": "Phone",
+    "what": "What to print",
+    "name_ph": "Your name",
+    "phone_ph": "+373 xx xxx xxx",
+    "what_ph": "Briefly describe the task",
+    "submit": "Get a quote",
+    "disclaimer": "Form leads to the quote page. Data is not shared with third parties."
+  },
+  "order_form": {
+    "title": "Order quote form",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "E-mail",
+    "product": "What to print",
+    "product_default": "— Select from catalog —",
+    "quantity": "Print run",
+    "quantity_ph": "E.g.: 500 pcs.",
+    "deadline": "Deadline",
+    "deadline_ph": "E.g.: by November 1",
+    "comment": "Comment",
+    "comment_ph": "Additional requirements, special wishes",
+    "file_label": "Artwork (up to {mb} MB)",
+    "file_formats": "CDR, AI, EPS, TIFF, PDF, JPG",
+    "consent": "I agree to the processing of personal data in accordance with the",
+    "consent_link": "privacy policy",
+    "submit": "Send request",
+    "sending": "Sending…",
+    "error": "Send error. Call us directly or email.",
+    "required_note": "* — required fields. Data is not shared with third parties."
   },
   "footer": {
     "lang_label": "Язык / Limbă / Language",
     "order_link": "Get a quote →",
     "copyright": "Chișinău, Moldova."
   },
-  "clients": {
+  "clients_page": {
     "page_title": "Our clients",
     "hero_h1": "Over 2200 companies already print with us.",
     "hero_sub": "From globally known brands to newly launched businesses.",
     "cta_title": "Become a client",
-    "cta_sub": "Tell us your task — we'll pick the technology and calculate."
+    "cta_sub": "Tell us your task — we'll pick the technology and calculate.",
+    "cta_btn": "Get a quote",
+    "cat_tech": "Technology & Electronics",
+    "cat_retail": "Retail & Chains",
+    "cat_transport": "Transport & Services",
+    "cat_wine": "Wineries",
+    "cat_food": "Food & Restaurants",
+    "cat_finance": "Finance, Health & Telecom"
+  },
+  "services_page": {
+    "hero_h1": "Seven technologies — one workshop.",
+    "hero_sub": "Offset, digital, silkscreen, wide-format, plotter, lamination and post-press under one roof — no middlemen.",
+    "picker_h2": "Not sure which technology fits?",
+    "picker_sub": "Answer three questions — get a reasoned recommendation. This is a guide; the manager will confirm the technology."
+  },
+  "catalog_page": {
+    "hero_h1": "What we print.",
+    "hero_sub": "items. Click 'I want this' — the form will fill in automatically.",
+    "all_types": "All types",
+    "all_tech": "All technologies",
+    "positions": "items",
+    "want_this": "I want this",
+    "want_this_long": "I want this — quote",
+    "technologies": "Technologies",
+    "close": "← Close",
+    "empty": "Nothing found for selected filters.",
+    "reset": "Reset filters"
+  },
+  "prepress_page": {
+    "hero_h1": "Artwork preparation.",
+    "hero_sub": "Follow the requirements — and the print run will come out without rework stops.",
+    "diagram_h2": "Bleed and safety zone",
+    "checklist_h2": "What to check before sending",
+    "formats_h2": "Accepted formats",
+    "upload_h2": "Artwork ready?",
+    "upload_body": "Upload your file through the quote form. We accept CDR, AI, EPS, TIFF, PDF.",
+    "upload_cta": "Upload artwork & quote",
+    "required": "Required",
+    "optional": "Recommended"
+  },
+  "contacts_page": {
+    "hero_h1": "Contacts.",
+    "address": "Address",
+    "phones": "Phones",
+    "on_map": "On the map",
+    "open_map": "Open in OpenStreetMap →",
+    "mob": "(mob.)",
+    "fax": "Fax:"
+  },
+  "order_page": {
+    "hero_h1": "Get a quote.",
+    "hero_sub": "Fill in the form — a manager will respond and clarify the details.",
+    "contacts_title": "Contact details",
+    "phone": "Phone",
+    "mobile": "Mobile",
+    "address": "Address"
   }
 }
