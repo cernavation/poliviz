@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Win95Window } from "@/components/ui/Win95Window";
-import { ROUTES } from "../../../content/routes";
+import { ROUTES } from "@/lib/routes";
 import { useLang } from "@/context/LanguageContext";
 import Link from "next/link";
 
@@ -16,7 +16,7 @@ const win95Input =
 
 export function OrderFormClient({ catalogOptions, maxUploadMb }: Props) {
   const router = useRouter();
-  const { t } = useLang();
+  const { t, lang, localize } = useLang();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [fileError, setFileError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -39,8 +39,20 @@ export function OrderFormClient({ catalogOptions, maxUploadMb }: Props) {
   function validateFile(file: File): string | null {
     const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
     const allowed = ["cdr", "ai", "eps", "tiff", "tif", "pdf", "jpg", "jpeg"];
-    if (!allowed.includes(ext)) return `Неподдерживаемый формат: .${ext}`;
-    if (file.size > MAX_BYTES) return `Файл превышает ${maxUploadMb} МБ`;
+    if (!allowed.includes(ext)) {
+      return lang === "ro"
+        ? `Format neacceptat: .${ext}`
+        : lang === "en"
+        ? `Unsupported format: .${ext}`
+        : `Неподдерживаемый формат: .${ext}`;
+    }
+    if (file.size > MAX_BYTES) {
+      return lang === "ro"
+        ? `Fișierul depășește ${maxUploadMb} MB`
+        : lang === "en"
+        ? `File exceeds ${maxUploadMb} MB`
+        : `Файл превышает ${maxUploadMb} МБ`;
+    }
     return null;
   }
 
@@ -60,7 +72,7 @@ export function OrderFormClient({ catalogOptions, maxUploadMb }: Props) {
     try {
       const res = await fetch("/raschet/api", { method: "POST", body: data });
       if (!res.ok) throw new Error("server error");
-      router.push(ROUTES.orderThanks);
+      router.push(localize(ROUTES.orderThanks));
     } catch {
       setStatus("error");
     }
@@ -147,7 +159,7 @@ export function OrderFormClient({ catalogOptions, maxUploadMb }: Props) {
             className="mt-1 flex-shrink-0" style={{ accentColor: "#D6307F" }} />
           <label htmlFor="order-consent" className="text-caption text-[#444] leading-snug">
             {t.order_form.consent}{" "}
-            <Link href={ROUTES.privacy} className="underline hover:text-[#121212] transition-colors">
+            <Link href={localize(ROUTES.privacy)} className="underline hover:text-[#121212] transition-colors">
               {t.order_form.consent_link}
             </Link>. <span className="text-[#D6307F]">*</span>
           </label>

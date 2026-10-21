@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ROUTES } from "../../../content/routes";
+import { ROUTES } from "@/lib/routes";
 import { SITE } from "../../../content/site.config";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,7 @@ const NAV_KEYS = [
   { key: "services" as const, href: ROUTES.services },
   { key: "catalog"  as const, href: ROUTES.catalog  },
   { key: "prepress" as const, href: ROUTES.prepress  },
-  { key: "clients"  as const, href: "/clients"       },
+  { key: "clients"  as const, href: ROUTES.clients   },
   { key: "contacts" as const, href: ROUTES.contacts  },
 ];
 
@@ -20,36 +20,43 @@ const LANGS: Lang[] = ["ru", "ro", "en"];
 
 /* ── Win95 nav button ── */
 const win95Nav =
-  "inline-flex items-center justify-center px-3 py-1.5 rounded-none font-bold text-[#121212] bg-[#dfdfdf] border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] active:border-t-[#808080] active:border-l-[#808080] active:border-b-white active:border-r-white active:translate-y-[1px] select-none cursor-pointer text-sm leading-none whitespace-nowrap transition-none";
+  "h-10 px-4 inline-flex items-center justify-center text-sm font-bold bg-[#dfdfdf] !text-[#121212] border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] active:bg-[#d0d0d0] active:border-t-[#808080] active:border-l-[#808080] active:border-b-white active:border-r-white active:translate-y-[1px]";
+
+const win95LangInactive =
+  "bg-[#dfdfdf] text-[#121212] border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] px-2 py-1 text-sm font-bold inline-flex items-center justify-center transition-none select-none active:translate-y-[1px]";
+
+const win95LangActive =
+  "bg-[#d0d0d0] text-[#121212] border-2 border-t-[#808080] border-l-[#808080] border-b-white border-r-white px-2 py-1 text-sm font-bold inline-flex items-center justify-center transition-none select-none";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { lang, setLang, t } = useLang();
+  const { lang, setLang, t, localize } = useLang();
 
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-40 bg-paper border-b border-mid">
-        <div className="max-w-content mx-auto px-6 md:px-10 h-14 flex items-center justify-between gap-4">
+        <div className="max-w-content mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link
-            href={ROUTES.home}
+            href={localize(ROUTES.home)}
             className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0"
             aria-label="Poliviz-Design — на главную"
           >
             <Image
               src="/polivizlogo.png"
               alt="Poliviz Design"
-              width={140}
-              height={36}
-              className="h-9 max-h-9 w-auto object-contain"
+              width={260}
+              height={65}
+              className="h-14 w-44 scale-[1.125] origin-left object-contain"
               priority
+              unoptimized
             />
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-2 flex-wrap" aria-label="Основная навигация">
             {NAV_KEYS.map((link) => (
-              <Link key={link.href} href={link.href} className={win95Nav}>
+              <Link key={link.href} href={localize(link.href)} className={win95Nav}>
                 {t.nav[link.key]}
               </Link>
             ))}
@@ -58,16 +65,12 @@ export function Header() {
           {/* Lang switcher + CTA + burger */}
           <div className="flex items-center gap-2 flex-shrink-0">
             {/* Language switcher */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-2">
               {LANGS.map((l) => (
                 <button
                   key={l}
                   onClick={() => setLang(l)}
-                  className={cn(
-                    win95Nav,
-                    "text-xs px-2 py-1",
-                    lang === l && "bg-[#d0d0d0] border-t-[#808080] border-l-[#808080] border-b-white border-r-white"
-                  )}
+                  className={lang === l ? win95LangActive : win95LangInactive}
                   aria-pressed={lang === l}
                 >
                   {l.toUpperCase()}
@@ -77,16 +80,16 @@ export function Header() {
 
             <Button
               as="a"
-              href={ROUTES.order}
+              href={localize(ROUTES.order)}
               variant="primary"
-              className="hidden md:inline-flex text-caption"
+              className="hidden md:inline-flex h-10 px-4 text-sm font-bold"
             >
               {t.nav.order}
             </Button>
 
             {/* Mobile burger — Win95 style */}
             <button
-              className={cn(win95Nav, "md:hidden p-2")}
+              className={cn(win95Nav, "md:hidden h-10 w-10 p-0 flex items-center justify-center")}
               aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
@@ -108,16 +111,16 @@ export function Header() {
       >
         <div className="flex items-center justify-between mb-16">
           <Link
-            href={ROUTES.home}
+            href={localize(ROUTES.home)}
             className="flex items-center hover:opacity-80 transition-opacity"
             onClick={() => setMobileOpen(false)}
           >
             <Image
               src="/polivizlogo2.png"
               alt="Poliviz Design"
-              width={140}
-              height={40}
-              className="h-9 w-auto object-contain"
+              width={180}
+              height={48}
+              className="h-12 max-h-12 w-auto object-contain py-0.5"
             />
           </Link>
           <button
@@ -134,7 +137,7 @@ export function Header() {
           {NAV_KEYS.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={localize(link.href)}
               className="text-headline text-paper hover:text-magenta transition-colors font-700 leading-none"
               onClick={() => setMobileOpen(false)}
             >
@@ -149,12 +152,8 @@ export function Header() {
             <button
               key={l}
               onClick={() => setLang(l)}
-              className={cn(
-                "px-3 py-1.5 text-sm font-bold border-2 rounded-none",
-                lang === l
-                  ? "bg-[#D6307F] text-white border-t-[#ff8cc0] border-l-[#ff8cc0] border-b-[#8a1a4f] border-r-[#8a1a4f]"
-                  : "bg-[#dfdfdf] text-[#121212] border-t-white border-l-white border-b-[#808080] border-r-[#808080]"
-              )}
+              className={lang === l ? win95LangActive : win95LangInactive}
+              aria-pressed={lang === l}
             >
               {l.toUpperCase()}
             </button>
@@ -164,7 +163,7 @@ export function Header() {
         <div className="mt-auto pt-12">
           <Button
             as="a"
-            href={ROUTES.order}
+            href={localize(ROUTES.order)}
             variant="outline"
             className="w-full"
             onClick={() => setMobileOpen(false)}
@@ -180,7 +179,7 @@ export function Header() {
       </div>
 
       {/* Spacer for fixed header */}
-      <div className="h-14" aria-hidden="true" />
+      <div className="h-16" aria-hidden="true" />
     </>
   );
 }

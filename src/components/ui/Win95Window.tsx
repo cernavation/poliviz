@@ -1,67 +1,67 @@
-import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 export type Win95Variant = "navy" | "magenta" | "dark";
 
-interface Win95WindowProps {
-  title: string;
+export interface Win95WindowProps {
+  title?: string;
   variant?: Win95Variant;
   className?: string;
   bodyClassName?: string;
   children: ReactNode;
-  /** Show the [_][□][X] title bar buttons */
-  showControls?: boolean;
 }
 
 const TITLE_BG: Record<Win95Variant, string> = {
-  navy:    "bg-[#000080]",
+  navy: "bg-[#121212] border-b-2 border-[#D6307F]",
   magenta: "bg-[#D6307F]",
-  dark:    "bg-[#444444]",
+  dark: "bg-[#121212] border-b-2 border-[#D6307F]",
 };
 
-/** Tiny [_][□][X] Win95 chrome buttons */
-function WinControls() {
-  return (
-    <span className="flex gap-[2px] flex-shrink-0">
-      {["_", "□", "X"].map((ch) => (
-        <button
-          key={ch}
-          type="button"
-          aria-hidden="true"
-          tabIndex={-1}
-          className="w-4 h-4 bg-[#dfdfdf] border border-t-white border-l-white border-b-[#808080] border-r-[#808080] text-[10px] leading-none flex items-center justify-center text-[#121212] font-bold select-none"
-        >
-          {ch}
-        </button>
-      ))}
-    </span>
-  );
-}
-
-/** Classic Windows 95 raised panel with title bar */
 export function Win95Window({
-  title,
+  title = "",
   variant = "navy",
   className,
   bodyClassName,
   children,
-  showControls = true,
 }: Win95WindowProps) {
+  const bgClass = TITLE_BG[variant] || "bg-[#121212] border-b-2 border-[#D6307F]";
+  const isMagenta = variant === "magenta";
+
   return (
     <div
       className={cn(
-        "border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] bg-[#dfdfdf]",
+        "bg-[#dfdfdf] border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080]",
         className
       )}
     >
       {/* Title bar */}
-      <div className={cn("flex items-center justify-between px-2 py-[3px]", TITLE_BG[variant])}>
-        <span className="text-white text-xs font-bold font-mono tracking-wider uppercase truncate select-none pr-2">
-          {title}
-        </span>
-        {showControls && <WinControls />}
+      <div className={cn("flex justify-between items-center px-3 py-1.5 select-none", bgClass)}>
+        <div className="flex items-center min-w-0 pr-2">
+          <span
+            className={cn(
+              "w-2 h-2 inline-block mr-2 flex-shrink-0",
+              isMagenta ? "bg-white" : "bg-[#D6307F]"
+            )}
+            aria-hidden="true"
+          />
+          <span className="text-white font-bold text-sm tracking-wide truncate">
+            {title}
+          </span>
+        </div>
+        <div className="flex gap-[2px] items-center flex-shrink-0">
+          {["_", "□", "X"].map((btn) => (
+            <span
+              key={btn}
+              className="bg-[#dfdfdf] border border-t-white border-l-white border-b-[#808080] border-r-[#808080] text-black text-[10px] font-bold w-5 h-5 flex items-center justify-center cursor-default select-none leading-none"
+              aria-hidden="true"
+            >
+              {btn}
+            </span>
+          ))}
+        </div>
       </div>
-      {/* Content */}
+
+      {/* Children content */}
       <div className={cn("p-4", bodyClassName)}>
         {children}
       </div>
@@ -69,7 +69,6 @@ export function Win95Window({
   );
 }
 
-/** Win95 raised panel WITHOUT a title bar — just the 3-D border */
 export function Win95Panel({
   className,
   children,
@@ -80,7 +79,7 @@ export function Win95Panel({
   return (
     <div
       className={cn(
-        "border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] bg-[#dfdfdf]",
+        "bg-[#dfdfdf] border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080]",
         className
       )}
     >
@@ -88,3 +87,5 @@ export function Win95Panel({
     </div>
   );
 }
+
+export default Win95Window;

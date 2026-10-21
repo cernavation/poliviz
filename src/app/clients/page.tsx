@@ -6,7 +6,7 @@ import { SheetLabel } from "@/components/ui/SheetLabel";
 import { PrintMark } from "@/components/ui/PrintMark";
 import { Button } from "@/components/ui/Button";
 import { Win95Window } from "@/components/ui/Win95Window";
-import { ROUTES } from "../../../content/routes";
+import { ROUTES } from "@/lib/routes";
 import { useLang } from "@/context/LanguageContext";
 
 const CAT_LABEL: Record<string, string> = {
@@ -14,8 +14,16 @@ const CAT_LABEL: Record<string, string> = {
   wine: "cat_wine", food: "cat_food", finance: "cat_finance",
 };
 
+const GRID_CLASSES_BY_COUNT: Record<number, string> = {
+  3: "grid-cols-1 sm:grid-cols-3",
+  4: "grid-cols-2 sm:grid-cols-4",
+  5: "grid-cols-2 sm:grid-cols-3 md:grid-cols-5",
+  6: "grid-cols-2 sm:grid-cols-3 md:grid-cols-6",
+  7: "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7",
+};
+
 export default function ClientsPage() {
-  const { t } = useLang();
+  const { t, localize } = useLang();
   const cp = t.clients_page;
   return (
     <>
@@ -23,7 +31,7 @@ export default function ClientsPage() {
         <PrintMark size={18} color="#7A7469" className="absolute top-6 left-6 opacity-30" />
         <PrintMark size={18} color="#7A7469" className="absolute top-6 right-6 opacity-30" />
         <div className="max-w-content mx-auto">
-          <SheetLabel sheet={1} total={2} tech="Клиенты" className="mb-8 block" />
+          <SheetLabel sheet={1} total={2} tech={t.nav.clients} className="mb-8 block" />
           <h1 className="text-display text-ink mb-6 max-w-3xl">{cp.hero_h1}</h1>
           <p className="text-title text-muted max-w-2xl" style={{ fontWeight: 400 }}>{cp.hero_sub}</p>
         </div>
@@ -31,21 +39,35 @@ export default function ClientsPage() {
       <CMYKBar />
       <section className="bg-paper py-12 md:py-20 px-6 md:px-10">
         <div className="max-w-content mx-auto flex flex-col gap-10">
-          {CLIENTS_BY_CATEGORY.map((group) => (
-            <Win95Window key={group.id}
-              title={(cp as Record<string, string>)[CAT_LABEL[group.id]] ?? group.label}
-              variant="navy" bodyClassName="p-6">
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-6">
-                {group.clients.map((client) => (
-                  <div key={client.slug} className="flex items-center justify-center p-4 aspect-[3/2]" title={client.name}>
-                    <img src={`/media/clients/${client.slug}.svg`} alt={client.name}
-                      className="max-h-10 w-full object-contain grayscale opacity-50 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
-                      draggable={false} loading="lazy" />
-                  </div>
-                ))}
-              </div>
-            </Win95Window>
-          ))}
+          {CLIENTS_BY_CATEGORY.map((group) => {
+            const gridClass = GRID_CLASSES_BY_COUNT[group.clients.length] || "grid-cols-2 sm:grid-cols-3 md:grid-cols-4";
+            return (
+              <Win95Window
+                key={group.id}
+                title={(cp as Record<string, string>)[CAT_LABEL[group.id]] ?? group.label}
+                variant="navy"
+                bodyClassName="p-6"
+              >
+                <div className={`grid gap-4 md:gap-6 ${gridClass}`}>
+                  {group.clients.map((client) => (
+                    <div
+                      key={client.slug}
+                      className="flex items-center justify-center p-4 aspect-[3/2] border border-[#808080]/30 bg-white/60 transition-colors hover:border-[#121212]/40 hover:bg-white"
+                      title={client.name}
+                    >
+                      <img
+                        src={`/media/clients/${client.slug}.svg`}
+                        alt={client.name}
+                        className="max-h-10 w-full object-contain grayscale opacity-60 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
+                        draggable={false}
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Win95Window>
+            );
+          })}
         </div>
       </section>
       {CASES_VISIBLE && (
@@ -61,7 +83,7 @@ export default function ClientsPage() {
             <p className="text-headline text-paper font-700 mb-2">{cp.cta_title}</p>
             <p className="text-body text-mid">{cp.cta_sub}</p>
           </div>
-          <Button as="a" href={ROUTES.order} variant="primary" className="flex-shrink-0">{cp.cta_btn}</Button>
+          <Button as="a" href={localize(ROUTES.order)} variant="primary" className="flex-shrink-0">{cp.cta_btn}</Button>
         </div>
       </section>
     </>

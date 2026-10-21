@@ -2,42 +2,32 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SERVICES, getServiceBySlug } from "../../../../content/services.config";
-import { ROUTES } from "../../../../content/routes";
+import { ROUTES } from "@/lib/routes";
 import { Button } from "@/components/ui/Button";
 import { Win95Window } from "@/components/ui/Win95Window";
 import { CMYKBar } from "@/components/ui/CMYKBar";
 import { SheetLabel } from "@/components/ui/SheetLabel";
 import { PrintMark } from "@/components/ui/PrintMark";
 import { MediaSlot } from "@/components/ui/MediaSlot";
-import { resolveMedia } from "@/lib/resolve-media";
+import type { MediaResult } from "@/lib/resolve-media";
 import { useLang } from "@/context/LanguageContext";
-
-const PHOTO_KEY: Record<string, string> = {
-  "ofsetnaya-pechat":         "offset",
-  "cifrovaya-pechat":         "digital",
-  "shelkografiya":            "silkscreen",
-  "shirokoformatnaya-pechat": "wide-format",
-  "plotternaya-rezka":        "plotter",
-  "laminaciya":               "lamination",
-  "poslepechatnye-raboty":    "postpress",
-};
 
 /* Win95 accent button link classes */
 const win95Link =
   "inline-flex items-center px-4 py-2 rounded-none border-2 font-bold text-body bg-[#dfdfdf] text-[#121212] border-t-white border-l-white border-b-[#808080] border-r-[#808080] active:border-t-[#808080] active:border-l-[#808080] active:border-b-white active:border-r-white active:translate-y-[1px] select-none transition-none";
 
-export default function ServicePageClient({ slug }: { slug: string }) {
-  const { lang } = useLang();
-  const l = lang === "en" ? "ro" : (lang as "ru" | "ro");
+export default function ServicePageClient({
+  slug,
+  heroMedia,
+}: {
+  slug: string;
+  heroMedia?: MediaResult;
+}) {
+  const { lang, localize } = useLang();
+  const l = lang;
 
   const service = getServiceBySlug(slug);
   if (!service) return notFound();
-
-  const photoKey = PHOTO_KEY[service.slug] ?? service.slug;
-  const heroMedia = resolveMedia(
-    `/media/photo/services/${photoKey}.jpg`,
-    `photo-service-${photoKey}`
-  );
 
   const related = service.relatedSlugs
     .map((s) => SERVICES.find((sv) => sv.slug === s))
@@ -64,7 +54,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
 
           <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
             <span className="sheet-label text-mid/60">
-              ФОТО {String(service.index).padStart(2, "0")} · {service.shortTitle[l].toUpperCase()}
+              {lang === "ro" ? "FOTO" : lang === "en" ? "PHOTO" : "ФОТО"} {String(service.index).padStart(2, "0")} · {service.shortTitle[l].toUpperCase()}
             </span>
           </div>
 
@@ -123,7 +113,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   ))}
                 </dl>
                 <div className="mt-6">
-                  <Button as="a" href={`${ROUTES.order}?service=${service.slug}`} variant="primary" className="w-full">
+                  <Button as="a" href={localize(`${ROUTES.order}?service=${service.slug}`)} variant="primary" className="w-full">
                     {lang === "ru" ? "Рассчитать заказ" : lang === "ro" ? "Calculează comanda" : "Get a quote"}
                   </Button>
                 </div>
@@ -154,7 +144,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               <div className="flex flex-wrap gap-4">
                 {related.map(
                   (rel) => rel && (
-                    <Link key={rel.slug} href={rel.href} className={win95Link}>
+                    <Link key={rel.slug} href={localize(rel.href)} className={win95Link}>
                       {rel.title[l]}
                     </Link>
                   )
@@ -176,7 +166,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               {lang === "ru" ? "Менеджер ответит и уточнит детали." : lang === "ro" ? "Managerul va răspunde și va clarifica detaliile." : "A manager will respond and clarify the details."}
             </p>
           </div>
-          <Button as="a" href={`${ROUTES.order}?service=${service.slug}`} variant="outline" className="flex-shrink-0 bg-[#dfdfdf] !text-[#121212] border-t-white border-l-white border-b-[#808080] border-r-[#808080]">
+          <Button as="a" href={localize(`${ROUTES.order}?service=${service.slug}`)} variant="outline" className="flex-shrink-0 bg-[#dfdfdf] !text-[#121212] border-t-white border-l-white border-b-[#808080] border-r-[#808080]">
             {lang === "ru" ? "Рассчитать заказ" : lang === "ro" ? "Calculează comanda" : "Get a quote"}
           </Button>
         </div>

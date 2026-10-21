@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import { LanguageProvider } from "@/context/LanguageContext";
+import ScrollToTop from "@/components/ScrollToTop";
 import { SITE } from "../../content/site.config";
 
 export const metadata: Metadata = {
@@ -13,6 +14,9 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description.ru,
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     type: "website",
     locale: "ru_MD",
@@ -72,6 +76,7 @@ export default function RootLayout({
       </head>
       <body>
         <LanguageProvider>
+          <ScrollToTop />
           <LenisProvider />
           <Header />
           <main>{children}</main>

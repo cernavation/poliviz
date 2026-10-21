@@ -118,7 +118,18 @@
     display: flex;
     height: 4px;
     width: 100%;
+    overflow: hidden;
   }
+
+  .cmyk-bar span {
+    flex: 1;
+    height: 100%;
+  }
+
+  .cmyk-bar span:nth-child(1) { background-color: var(--cyan, #00A0E9); }
+  .cmyk-bar span:nth-child(2) { background-color: var(--magenta, #D6307F); }
+  .cmyk-bar span:nth-child(3) { background-color: var(--yellow, #FFF100); }
+  .cmyk-bar span:nth-child(4) { background-color: var(--ink, #121212); }
 
   /* Paper grain texture */
   .bg-grain {
@@ -215,4 +226,16 @@
 
   /* Override any rogue blue links */
   a { color: inherit; }
+
+  /* Shake animation for Win95 dialog error */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+  }
+
+  .animate-shake {
+    animation: shake 0.45s ease-in-out;
+  }
 }
+

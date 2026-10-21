@@ -12,7 +12,7 @@ export default function OrderPage() {
   const { t, lang } = useLang();
   const catalogOptions = CATALOG.map((item) => ({
     value: item.slug,
-    label: item.title.ru,
+    label: item.title[lang] || item.title.ru,
   }));
 
   return (
@@ -21,7 +21,7 @@ export default function OrderPage() {
         <PrintMark size={18} color="#7A7469" className="absolute top-6 left-6 opacity-30" />
         <PrintMark size={18} color="#7A7469" className="absolute top-6 right-6 opacity-30" />
         <div className="max-w-content mx-auto">
-          <SheetLabel sheet={1} total={1} tech="Расчёт" className="mb-8 block" />
+          <SheetLabel sheet={1} total={1} tech={t.nav.order} className="mb-8 block" />
           <h1 className="text-display text-ink mb-4 max-w-3xl">{t.order_page.hero_h1}</h1>
           <p className="text-title text-muted max-w-xl" style={{ fontWeight: 400 }}>{t.order_page.hero_sub}</p>
         </div>

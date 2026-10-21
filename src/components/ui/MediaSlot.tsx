@@ -48,7 +48,9 @@ export function MediaSlot({
   sizes = "(max-width: 768px) 100vw, 50vw",
   objectPosition = "center",
 }: MediaSlotProps) {
-  if (!src) {
+  const [hasError, setHasError] = useState(false);
+
+  if (!src || hasError) {
     return (
       <MediaPlaceholder
         ratio={expectedRatio}
@@ -63,7 +65,7 @@ export function MediaSlot({
     : { objectPosition };
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
+    <div className={cn("relative overflow-hidden bg-[#F4F1EA]", className)}>
       {/* Registration crosses */}
       <PrintMark size={10} color="#7A7469" className="absolute top-2 left-2 z-10 opacity-20 pointer-events-none" />
       <PrintMark size={10} color="#7A7469" className="absolute top-2 right-2 z-10 opacity-20 pointer-events-none" />
@@ -75,10 +77,11 @@ export function MediaSlot({
           src={src}
           alt={alt}
           fill
-          className="object-cover"
+          className="object-cover transition-opacity duration-300"
           priority={priority}
           sizes={sizes}
           style={imgStyle}
+          onError={() => setHasError(true)}
         />
       ) : (
         <Image
@@ -86,10 +89,11 @@ export function MediaSlot({
           alt={alt}
           width={width}
           height={height}
-          className="w-full h-auto block"
+          className="w-full h-auto block transition-opacity duration-300"
           priority={priority}
           sizes={sizes}
           style={imgStyle}
+          onError={() => setHasError(true)}
         />
       )}
 
@@ -134,30 +138,72 @@ export function MediaPlaceholder({
   className?: string;
 }) {
   const [w, h] = ratio.split(":").map(Number);
-  const paddingBottom = `${((h / w) * 100).toFixed(2)}%`;
+  const isAbsolute = className?.includes("absolute") || className?.includes("h-full");
+  const paddingBottom = isAbsolute ? undefined : `${((h / (w || 1)) * 100).toFixed(2)}%`;
 
   return (
     <div
-      className={cn("relative overflow-hidden bg-mid/20", className)}
+      className={cn(
+        "relative overflow-hidden bg-[#F4F1EA] flex flex-col items-center justify-center select-none",
+        className
+      )}
       style={{ paddingBottom }}
       role="img"
       aria-label={slotId ? `Медиа-слот: ${slotId}` : "Изображение отсутствует"}
     >
+      {/* Subtle technical background grid */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(122, 116, 105, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(122, 116, 105, 0.08) 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Center crosshair lines */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/2 left-0 right-0 h-px bg-mid/30" />
-        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-mid/30" />
+        <div className="absolute top-1/2 left-0 right-0 h-px bg-[#7A7469]/20" />
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[#7A7469]/20" />
       </div>
-      <PrintMark size={12} color="#7A7469" className="absolute top-2 left-2 opacity-25" />
-      <PrintMark size={12} color="#7A7469" className="absolute top-2 right-2 opacity-25" />
-      <PrintMark size={12} color="#7A7469" className="absolute bottom-2 left-2 opacity-25" />
-      <PrintMark size={12} color="#7A7469" className="absolute bottom-2 right-2 opacity-25" />
-      <div className="absolute inset-0 bg-halftone opacity-30" aria-hidden="true" />
-      {isDev && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 pointer-events-none" aria-hidden="true">
-          {slotId && <span className="sheet-label text-muted opacity-70">{slotId}</span>}
-          <span className="sheet-label text-muted opacity-40">{ratio}</span>
+
+      {/* Corner crop marks */}
+      <PrintMark size={14} color="#7A7469" className="absolute top-2.5 left-2.5 opacity-40" />
+      <PrintMark size={14} color="#7A7469" className="absolute top-2.5 right-2.5 opacity-40" />
+      <PrintMark size={14} color="#7A7469" className="absolute bottom-2.5 left-2.5 opacity-40" />
+      <PrintMark size={14} color="#7A7469" className="absolute bottom-2.5 right-2.5 opacity-40" />
+
+      {/* Halftone texture */}
+      <div className="absolute inset-0 bg-halftone opacity-20 pointer-events-none" aria-hidden="true" />
+
+      {/* Center badge with brand styling */}
+      <div className="relative z-10 flex flex-col items-center justify-center gap-1.5 px-3 py-2 text-center pointer-events-none">
+        <div className="w-7 h-7 rounded-full border border-[#7A7469]/40 flex items-center justify-center bg-[#EAE5D9]/80 shadow-sm">
+          <svg
+            className="w-3.5 h-3.5 text-[#7A7469]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.75}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"
+            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+          </svg>
         </div>
-      )}
+        <span className="font-mono text-[11px] font-semibold tracking-wider uppercase text-[#544E45] bg-[#EAE5D9] px-2 py-0.5 border border-[#D9D4C7]">
+          Фото скоро
+        </span>
+        {slotId && isDev && (
+          <span className="font-mono text-[9px] text-[#7A7469]/80 truncate max-w-[120px]">
+            {slotId}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
