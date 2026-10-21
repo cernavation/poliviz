@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "services": "Servicii",
+    "catalog": "Produse",
+    "prepress": "Machete",
+    "clients": "Clienți",
+    "contacts": "Contacte",
+    "order": "Calculează comanda"
+  },
+  "hero": {
+    "headline": "Din fișier — în mâini.",
+    "subline": "Tipografie full-cycle în Chișinău: design, tipar și prelucrare postimprimare într-un singur atelier.",
+    "cta_order": "Calculează comanda",
+    "cta_prepress": "Încarcă macheta"
+  },
+  "footer": {
+    "lang_label": "Язык / Limbă / Language",
+    "order_link": "Calculează comanda →",
+    "copyright": "Chișinău, Moldova."
+  },
+  "clients": {
+    "page_title": "Clienții tipografiei",
+    "hero_h1": "Peste 2200 de companii imprimă deja cu noi.",
+    "hero_sub": "De la companii cu renume mondial la firme nou-intrate pe piață.",
+    "cta_title": "Deveniți client",
+    "cta_sub": "Descrieți sarcina — vom alege tehnologia și vom calcula."
+  }
+}

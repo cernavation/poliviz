@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "services": "Services",
+    "catalog": "Products",
+    "prepress": "Prepress",
+    "clients": "Clients",
+    "contacts": "Contacts",
+    "order": "Get a quote"
+  },
+  "hero": {
+    "headline": "From file — to hands.",
+    "subline": "Full-cycle print shop in Chișinău: design, print and post-press finishing under one roof.",
+    "cta_order": "Get a quote",
+    "cta_prepress": "Upload artwork"
+  },
+  "footer": {
+    "lang_label": "Язык / Limbă / Language",
+    "order_link": "Get a quote →",
+    "copyright": "Chișinău, Moldova."
+  },
+  "clients": {
+    "page_title": "Our clients",
+    "hero_h1": "Over 2200 companies already print with us.",
+    "hero_sub": "From globally known brands to newly launched businesses.",
+    "cta_title": "Become a client",
+    "cta_sub": "Tell us your task — we'll pick the technology and calculate."
+  }
+}
